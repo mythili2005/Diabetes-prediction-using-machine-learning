@@ -9,10 +9,6 @@ gdown.download(url, output, quiet=False)
 
 try:
     model = joblib.load(output)
-    if hasattr(model, "predict"):
-        st.success("✅ Model loaded successfully!")
-    else:
-        st.error("❌ Error: Model does not support predictions!")
 except Exception as e:
     st.error(f"❌ Model loading failed: {e}")
 
