@@ -8,7 +8,7 @@ url = "https://drive.google.com/file/d/1VsIHHVd6J2qgq0QW_RnnKf4RjsohyQ9s/view?us
 output = "fine_tuned_model.pkl"
 gdown.download(url, output, quiet=False)
 
-with open("fine_tuned_model.pkl", "rb") as file:
+with open(output, "rb") as file:
     model = pickle.load(file)
 
 gender_dict = {"Male": 1, "Female": 0}
