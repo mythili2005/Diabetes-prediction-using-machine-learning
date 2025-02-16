@@ -3,13 +3,18 @@ import pickle
 import numpy as np
 import gdown
 
-# Download from Google Drive (replace with your own file ID)
 url = "https://drive.google.com/uc?id=1VsIHHVd6J2qgq0QW_RnnKf4RjsohyQ9s"
 output = "fine_tuned_model.pkl"
 gdown.download(url, output, quiet=False)
 
-with open(output, "rb") as file:
-    model = pickle.load(file)
+try:
+    model = joblib.load(output)
+    if hasattr(model, "predict"):
+        st.success("✅ Model loaded successfully!")
+    else:
+        st.error("❌ Error: Model does not support predictions!")
+except Exception as e:
+    st.error(f"❌ Model loading failed: {e}")
 
 gender_dict = {"Male": 1, "Female": 0}
 smoking_dict = {"Former": 0, "Current": 1, "Never": 2}
