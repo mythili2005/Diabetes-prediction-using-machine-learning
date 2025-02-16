@@ -4,7 +4,7 @@ import numpy as np
 import gdown
 
 # Download from Google Drive (replace with your own file ID)
-url = "https://drive.google.com/file/d/1VsIHHVd6J2qgq0QW_RnnKf4RjsohyQ9s/view?usp=sharing"
+url = "https://drive.google.com/uc?id=1VsIHHVd6J2qgq0QW_RnnKf4RjsohyQ9s"
 output = "fine_tuned_model.pkl"
 gdown.download(url, output, quiet=False)
 
