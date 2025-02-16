@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-model = pickle.load(open("/content/drive/MyDrive/ML/ML Project/fine_tuned_model.pkl", "rb"))
+model = pickle.load(open("fine_tuned_model.pkl", "rb"))
 
 gender_dict = {"Male": 1, "Female": 0}
 smoking_dict = {"Former": 0, "Current": 1, "Never": 2}
