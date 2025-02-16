@@ -1,8 +1,15 @@
 import streamlit as st
 import pickle
 import numpy as np
+import gdown
 
-model = pickle.load(open("fine_tuned_model.pkl", "rb"))
+# Download from Google Drive (replace with your own file ID)
+url = "https://drive.google.com/file/d/1VsIHHVd6J2qgq0QW_RnnKf4RjsohyQ9s/view?usp=sharing"
+output = "fine_tuned_model.pkl"
+gdown.download(url, output, quiet=False)
+
+with open("fine_tuned_model.pkl", "rb") as file:
+    model = pickle.load(file)
 
 gender_dict = {"Male": 1, "Female": 0}
 smoking_dict = {"Former": 0, "Current": 1, "Never": 2}
