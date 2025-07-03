@@ -6,16 +6,13 @@ import gdown
 # ------------------------------
 # Download model from Google Drive
 # ------------------------------
-MODEL_URL = "https://drive.google.com/uc?id=1CszEFu4owf1117WQwaig_77kHe0Ny9Tn"  # ✅ Replace with your actual model file ID
-SCALER_URL = "https://drive.google.com/uc?id=1O2ICsqgW0rN630LMlhKOTtP0TUpBQE8W"  # ✅ Replace with your actual scaler file ID
+MODEL_URL = "https://drive.google.com/uc?id=1CszEFu4owf1117WQwaig_77kHe0Ny9Tn"
+SCALER_URL = "https://drive.google.com/uc?id=1O2ICsqgW0rN630LMlhKOTtP0TUpBQE8W"
 
 MODEL_FILE = "diabetes_model.pkl"
 SCALER_FILE = "scaler.pkl"
 
-# Download best model
 gdown.download(MODEL_URL, MODEL_FILE, quiet=False)
-
-# Download scaler
 gdown.download(SCALER_URL, SCALER_FILE, quiet=False)
 
 # ------------------------------
@@ -30,12 +27,10 @@ except Exception as e:
     st.error(f"❌ Error loading model/scaler: {e}")
 
 # ------------------------------
-# Encoding dicts — must match your training!
+# Encoding dicts
 # ------------------------------
 gender_dict = {"Male": 1, "Female": 0}
 
-# 👉 Example correct mapping
-# This must match your LabelEncoder fitting order in train_model.py
 smoking_mapping = {
     "No Info": 0,
     "current": 1,
@@ -57,12 +52,20 @@ st.write("Fill in your details below and click **Predict** to check your diabete
 # ------------------------------
 gender = st.selectbox("Gender", ["Male", "Female"])
 age = st.number_input("Age", min_value=0, max_value=120, value=30)
-hypertension = st.selectbox("Hypertension", [0, 1], help="0: No, 1: Yes")
-heart_disease = st.selectbox("Heart Disease", [0, 1], help="0: No, 1: Yes")
+
+# ✅ Use Yes/No for hypertension & heart disease
+hypertension_label = st.selectbox("Hypertension", ["No", "Yes"])
+heart_disease_label = st.selectbox("Heart Disease", ["No", "Yes"])
+
+# ✅ Convert to 0/1 for the model
+hypertension = 1 if hypertension_label == "Yes" else 0
+heart_disease = 1 if heart_disease_label == "Yes" else 0
+
 smoking_history = st.selectbox(
     "Smoking History",
     ["No Info", "current", "ever", "former", "never", "not current"]
 )
+
 bmi = st.number_input("BMI", min_value=0.0, max_value=100.0, value=25.0, format="%.2f")
 blood_glucose_level = st.number_input("Blood Glucose Level", min_value=0.0, max_value=500.0, value=100.0, format="%.2f")
 
@@ -90,4 +93,4 @@ if st.button("Predict"):
     else:
         st.success("✅ You are unlikely to have diabetes. Stay healthy!")
 
-st.caption("🧑‍⚕️ *Always consult a medical professional for an accurate diagnosis.*")
+st.caption(" *Always consult a medical professional for an accurate diagnosis.*")
